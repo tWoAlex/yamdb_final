@@ -4,6 +4,6 @@ WORKDIR /app
 
 COPY ./ .
 
-RUN pythom -m pip install -r requirements.txt --no-cache-dir
+RUN python -m pip install -r requirements.txt --no-cache-dir
 
 CMD ["gunicorn", "api_yamdb.wsgi:application", "--bind", "0:8000"]
