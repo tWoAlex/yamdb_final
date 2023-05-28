@@ -86,7 +86,7 @@ class UserViewSet(viewsets.ModelViewSet):
             serializer = self.get_serializer(user)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
-        elif request.method == "PATCH":
+        if request.method == "PATCH":
             serializer = self.get_serializer(user, data=request.data,
                                              partial=True)
             serializer.is_valid(raise_exception=True)
@@ -132,8 +132,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAdminModeratorAuthorOrReadOnly,)
 
     def get_queryset(self):
-        title = Review.objects.filter(title__id=self.kwargs.get('title_id'))
-        return title
+        return Review.objects.filter(title__id=self.kwargs.get('title_id'))
 
     def perform_create(self, serializer):
         title = get_object_or_404(Title, pk=self.kwargs['title_id'])
