@@ -32,11 +32,31 @@ sudo docker-compose stop            # для остановки предыдущ
 sudo docker pull twoalex/api_yamdb  # для загрузки актуального образа
 sudo docker-compose up -d           # для запуска актуальной версии
 ```
-5. Первый запуск, подготовка базы данных и суперпользователя:
+5.1. Первый запуск, подготовка базы данных и суперпользователя:
+```
+sudo docker containter ls
+```
+Отобразится таблица активных контейнеров.
+Выберите тот, **IMAGE** которого **twoalex/api_yamdb** и скопируйте **CONTAINER ID**
+
+Подготовка базы данных
+```
+sudo docker exec {{ CONTAINER ID }} python manage.py makemigrations
 ```
 ```
-6. Опционально, наполнить тестовыми данными:
+sudo docker exec {{ CONTAINER ID }} python manage.py migrate
 ```
+
+Создание суперпользователя
+```
+sudo docker exec {{ CONTAINER ID }} python manage.py createsuperuser
+```
+Следуя инструкциям на экране, введите Username, Email и Password.
+Админка доступна по адресу `http://{{ URL или IP вашего сервера }}/admin/`
+
+5.2. Наполнить тестовыми данными (опционально):
+```
+sudo docker exec {{ CONTAINER ID }} python manage.py loaddata fixtures.json
 ```
 
 ### Примеры запросов:
