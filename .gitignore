@@ -149,6 +149,3 @@ dmypy.json
 static/
 posts/static/
 media/
-
-# Документация и экземпляры данных для БД
-!static/redoc.yaml
